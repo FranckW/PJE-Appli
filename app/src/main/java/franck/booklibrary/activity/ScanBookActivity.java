@@ -7,6 +7,9 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
+
+import franck.booklibrary.RequestHandler;
 import franck.booklibrary.scanIntent.IntentIntegrator;
 import franck.booklibrary.scanIntent.IntentResult;
 import franck.booklibrary.R;
@@ -42,6 +45,12 @@ public class ScanBookActivity extends Activity {
             TextView scanFormatView = (TextView) findViewById(R.id.scan_format);
             scanContentView.setText("Content : " + scanContent);
             scanFormatView.setText("Format : " + scanFormat);
+            RequestHandler requestHandler = new RequestHandler();
+            try {
+                requestHandler.getBookByEAN(scanContent);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         } else {
             Toast toast = Toast.makeText(getApplicationContext(),
                     "Error : no data scan received", Toast.LENGTH_SHORT);
